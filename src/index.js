@@ -1,5 +1,6 @@
-import './style.css';
-import Tasks from './modules/Tasks.js';
+import Tasks from './modules/Tasks/Tasks.js';
+// import './style.css';
+
 
 const body = document.querySelector('body');
 const todoList = document.createElement('div');
@@ -15,6 +16,10 @@ todoList.innerHTML = `
                       <button class="btn">Clear all completed</button>
                       `;
 body.appendChild(todoList);
-Tasks();
 
-window.onload = () => getTodoArray();
+
+const textInput = document.querySelector('.todo-input');
+
+// const todoListItems = document.querySelector('.todo-list-items');
+
+Tasks();
