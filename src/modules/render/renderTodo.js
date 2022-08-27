@@ -16,26 +16,35 @@ let renderTodo = () => {
                                 <div class="todo">
                                 <input id="checkbox" type="checkbox" class="checkbox">
                                 <span><p class="todo-description" type="submit" contenteditable="true">${todo.description}</p></span>
-                                <div class="dots"></div>
+                                <div class="icon"></div>
                                 </div>
                                 <hr>
                                 `;
         todoListItems.appendChild(todoItem);
     });
-    const dot = document.querySelector('.dots');
+
+    const todoItem = document.querySelectorAll('.todo-item');
     
-      dot.addEventListener('click', (e) => {        
-        console.log(dot)
-        e.preventDefault();
-        removeTodo(todoArray.indexOf(todo));
-        sendToLocalStorage();
-      });
+    const todos = document.querySelector('.todo');
+    if (todos !== null){
+        
+        todos.addEventListener('click', (e) => {
+            threeDots.style.display = 'none';
+            trashIcon.style.display = 'block';
+            e.target.style.background='pink';
+        })
+    }
+    const icon = document.querySelector('.icon');
+    const threeDots = document.createElement('i');
+    threeDots.className = 'fas fa-ellipsis-v';
+    const trashIcon = document.createElement('i');
+    trashIcon.className = 'fas fa-trash-alt icon2';
+    if (icon !== null) { 
+        icon.append(threeDots);
+        icon.append(trashIcon);
+        trashIcon.style.display = 'none';
+     }
     
-    //   const checkbox = document.querySelector('.checkbox');
-    //   checkbox.addEventListener('click', (e) => {
-    //     todo.completed = true;
-    //   });
-    
-    };
+};   
 
   export default renderTodo;
