@@ -2,35 +2,29 @@ import _ from 'lodash';
 import Status from './TaskStatus.js';
 
 // eslint-disable-next-line no-unused-vars
-const state = new Status();
+
+let todoArray = [];
+
+const sendToLocalStorage = () => {
+  localStorage.setItem('todoArray', JSON.stringify(todoArray));
+};
 
 const Tasks = () => {
-  let todoArray = [];
   const textInput = document.querySelector('.todo-input');
   const enterInput = document.querySelector('.enter-input');
   enterInput.addEventListener('click', (e) => {
     e.preventDefault();
     // eslint-disable-next-line no-use-before-define
-    formValidation();
+    addTodo();
   });
 
   const addTodo = () => {
-    const todo = {
-      description: textInput.value,
-      completed: false,
-      index: (todoArray.length + 1),
-    };
+    let todo = new Status(textInput.value, false, todoArray.length + 1);
     todoArray.push(todo);
     textInput.value = '';
     // eslint-disable-next-line no-use-before-define
     renderTodo();
     localStorage.setItem('todoArray', JSON.stringify(todoArray));
-  };
-
-  //
-  const formValidation = () => {
-    // eslint-disable-next-line no-unused-expressions
-    (textInput.value === '') ? alert('Please enter a task') : addTodo();
   };
 
   const removeTodo = (index) => {
@@ -92,22 +86,3 @@ const Tasks = () => {
 };
 
 export default Tasks;
-
-export const getTodoArray = () => {
-  const todoArray = JSON.parse(localStorage.getItem('todoArray'));
-  const todoListItems = document.querySelector('.todo-list-items');
-  todoArray.forEach((todo) => {
-    const todoItem = document.createElement('div');
-    todoItem.classList.add('todo-item');
-    todoItem.innerHTML = `
-                            <div class="todo">
-                            <input id="checkbox" type="checkbox" class="checkbox" ${todo.completed} ? 'checked' : ''}>
-                            <span class="todo-description" type="submit" contenteditable="true">${todo.description}</span>
-                            <div class="dots"></div>
-                            </div>
-                            <hr>
-                            `;
-
-    todoListItems.appendChild(todoItem);
-  });
-};
