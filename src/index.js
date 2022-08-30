@@ -17,9 +17,4 @@ todoList.innerHTML = `
                       `;
 body.appendChild(todoList);
 
-
-const textInput = document.querySelector('.todo-input');
-
-// const todoListItems = document.querySelector('.todo-list-items');
-
 Tasks();

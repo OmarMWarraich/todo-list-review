@@ -1,50 +1,77 @@
-import {todoArray} from '../consts/consts.js';
+import {todoArray, sendToLocalStorage} from '../consts/consts.js';
 import Status from '../TaskStatus/TaskStatus.js';
-import { removeTodo } from '../removeTodo/removeTodo.js';
-import { sendToLocalStorage } from '../consts/consts.js';
-
+import { removeTodo, removeTodos } from '../removeTodo/removeTodo.js';
 
 let renderTodo = () => {
     const textInput = document.querySelector('.todo-input');
     const todoListItems = document.querySelector('.todo-list-items');
-    let todo = new Status(textInput.value, false, todoArray.length+1);
+    let todo = new Status(textInput.value, false, todoArray.length);
     todoListItems.innerHTML = '';
     todoArray.forEach((todo) => {
         const todoItem = document.createElement('div');
-        todoItem.classList.add('todo-item');
+        todoItem.className ='todo-item';
         todoItem.innerHTML = `
-                                <div class="todo">
-                                <input id="checkbox" type="checkbox" class="checkbox">
-                                <span><p class="todo-description" type="submit" contenteditable="true">${todo.description}</p></span>
-                                <div class="icon"></div>
-                                </div>
-                                <hr>
-                                `;
+                            <div class="todo">
+                            <input id="checkbox" type="checkbox" class="checkbox" ${!todo.completed} ? 'checked' : '' >
+                            <span><p class="todo-description" type="submit" contenteditable="true">${todo.description}</p></span>
+                            <div class="icon"><i class="fas fa-ellipsis-v"></i><i class="fas fa-trash-alt icon2"></i></div>
+                            </div>
+                            <hr>
+                            `;
         todoListItems.appendChild(todoItem);
+        sendToLocalStorage();
     });
-
-    const todoItem = document.querySelectorAll('.todo-item');
-    
-    const todos = document.querySelector('.todo');
-    if (todos !== null){
-        
-        todos.addEventListener('click', (e) => {
-            threeDots.style.display = 'none';
-            trashIcon.style.display = 'block';
-            e.target.style.background='pink';
+    const checkboxes = document.querySelectorAll('.checkbox');
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('click', (e) => {
+            e.target.parentElement.classList.toggle('bg');
+            localStorage.setItem('todoArray', JSON.stringify(todoArray));
+            const arr = JSON.parse(localStorage.getItem('todoArray'));
+            const newArray = [];
+            const checked = document.querySelectorAll('.todo');
+            for (let i = 0; i < arr.length; i += 1) {
+            (checked[i].classList.contains('bg')) ? 
+            arr[i].completed = true: arr[i].completed = false;  
+            newArray.push(arr[i]);
+            localStorage.setItem('todoArray', JSON.stringify(newArray));
+            }
+    });
+  });  
+    const todos = document.querySelectorAll('.todo');
+    const icons = document.querySelectorAll('.icon');
+    const trashIcons = document.querySelectorAll('.icon i:last-child');
+    todos.forEach((Element) => {
+        Element.addEventListener('click', (e) => {
+          Element.querySelector('.icon i:first-child').style.display = 'none';
+          Element.querySelector('.icon i:last-child').style.display = 'block';  
+        for (let i = 0; i < Element.parentElement.parentElement.childElementCount; i += 1) {
+            
+        }
+    })
+    trashIcons.forEach((bin) => {
+        bin.addEventListener('click', (e) => {
+             
+            
+            sendToLocalStorage();
         })
-    }
-    const icon = document.querySelector('.icon');
-    const threeDots = document.createElement('i');
-    threeDots.className = 'fas fa-ellipsis-v';
-    const trashIcon = document.createElement('i');
-    trashIcon.className = 'fas fa-trash-alt icon2';
-    if (icon !== null) { 
-        icon.append(threeDots);
-        icon.append(trashIcon);
-        trashIcon.style.display = 'none';
-     }
-    
-};   
-
+    })
+    });
+    const clearBtn = document.querySelector('.btn');
+    clearBtn.addEventListener('click', () => {
+        const arr = JSON.parse(localStorage.getItem('todoArray'));
+        const clearable = document.querySelectorAll('.bg');
+        
+        for (let i = 0; i < clearable.length; i += 1) {
+          todoListItems.removeChild(clearable[i].parentElement);
+        }
+        const newArray = [];
+        for (let i = 0; i < arr.length; i += 1) {
+          if (arr[i].completed === true) {
+            continue;
+          }
+          newArray.push(arr[i]);
+        }
+        localStorage.setItem('todoArray', JSON.stringify(newArray));
+      });
+}
   export default renderTodo;
