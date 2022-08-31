@@ -1,9 +1,12 @@
-export const removeTodo = (index) => {
-    todoArray.splice(index, 1);
-    sendToLocalStorage();
-}
+import { todoArray, sendToLocalStorage } from '../consts/consts.js';
 
-export const removeTodos = () => {
-    todoArray = [];
-    sendToLocalStorage();
-}
+const removeTodo = (index) => {
+  todoArray.forEach((todo, i) => {
+    if (i === index) {
+      todoArray.splice(i, 1);
+    }
+  });
+  sendToLocalStorage();
+};
+
+export default removeTodo;

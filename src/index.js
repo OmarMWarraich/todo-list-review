@@ -1,7 +1,6 @@
 import Tasks from './modules/Tasks/Tasks.js';
 // import './style.css';
 
-
 const body = document.querySelector('body');
 const todoList = document.createElement('div');
 todoList.classList.add('todo-list');
