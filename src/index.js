@@ -1,5 +1,5 @@
-import Tasks from './modules/Tasks/Tasks.js';
-// import './style.css';
+import {Tasks} from './functions.js';
+import './style.css';
 
 const body = document.querySelector('body');
 const todoList = document.createElement('div');
