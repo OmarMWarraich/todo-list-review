@@ -1,3 +1,5 @@
+// import { findIndex } from "lodash";
+
 class Status {
     constructor(description, completed, index) {
       this.description = description;
@@ -17,9 +19,10 @@ const sendToLocalStorage = () => {
     localStorage.setItem('todoArray', JSON.stringify(todoArray));
     };
 
-    const addTodo = () => {
+    export const addTodo = () => {
         const textInput = document.querySelector('.todo-input');
         textInput.value = '';
+        
         textInput.addEventListener('keypress', (e) => {
           if (e.key === 'Enter' && textInput.value) {
             const todo = new Status(textInput.value, false, todoArray.length);
@@ -30,6 +33,7 @@ const sendToLocalStorage = () => {
             sendToLocalStorage();
           }
         });
+    
       };
 
       const renderTodo = () => {
@@ -116,7 +120,8 @@ const sendToLocalStorage = () => {
             }
             newArray.push(arr[i]);
           }
-          localStorage.setItem('todoArray', JSON.stringify(newArray));
+        //   localStorage.setItem('todoArray', JSON.stringify(newArray));
+        //   sendToLocalStorage();
         });
       };
 
@@ -138,4 +143,16 @@ const removeTodo = (x) => {
 
 // edit item from array
 
+const editTodo = (x) => {
+    todoArray[x].description = prompt('Enter new description');
+    renderTodo();
+    };
 
+// updateIndex
+
+const updateIndex = () => {
+    todoArray.forEach((todo) => {
+        todo.index = findIndex(todoArray, todo);
+    }
+    );
+}
