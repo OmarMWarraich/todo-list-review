@@ -16,4 +16,13 @@ describe('Add and Remove Task', () => {
     const list = document.querySelectorAll('.todo-item');
     expect(list).toHaveLength(1);
   });
+
+  test('Remove a task', () => {
+    document.body.innerHTML = "<li id='id1' class='todo-item'><div class='left-li' id='ld1'><input type='checkbox' id='chid1' class='checkbox-item'><p id='p1' class='p-task'>New item</p></div><i class='menu-display fa-solid fa-ellipsis-vertical' id='1'></i></li>";
+    const tasksCl = new Tasks();
+    remoHtml('1', tasksCl);
+
+    const list = document.querySelectorAll('.todo-item');
+    expect(list).toHaveLength(0);
+  });
 });
