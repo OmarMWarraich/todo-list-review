@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1662036342709" clover="3.2.0">
-  <project timestamp="1662036342709" name="All files">
+<coverage generated="1662046908495" clover="3.2.0">
+  <project timestamp="1662046908495" name="All files">
     <metrics statements="49" coveredstatements="42" conditionals="2" coveredconditionals="1" methods="17" coveredmethods="9" elements="68" coveredelements="52" complexity="0" loc="49" ncloc="49" packages="1" files="4" classes="4"/>
     <file name="RemoHtml.js" path="/home/o-va/Documents/todo-list-review/src/RemoHtml.js">
       <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>

@@ -1,4 +1,4 @@
-import {Tasks} from './functions.js';
+import { Tasks } from './functions.js';
 import './style.css';
 
 const body = document.querySelector('body');
