@@ -75,7 +75,40 @@ describe('Edit, remove and clear-all Task operations', () => {
     expect(tasks[2].bval).toBe(true);
   });
 
+  test('Clear all completed values', () => {
+    document.body.innerHTML = "<ul id='todo-ul'></i></li><li id='clearList'><p>Clear all completed</p></li></ul>";
+    const todoUl = document.getElementById('todo-ul');
+    const clearTodo = document.getElementById('clearList');
+    const tasksCl = new Tasks();
 
+    const tasks = [
+      {
+        desc: 'Clear-space',
+        bval: false,
+        index: 1,
+      },
+      {
+        desc: 'Test-task',
+        bval: true,
+        index: 2,
+      },
+      {
+        desc: 'Editable-task',
+        bval: false,
+        index: 3,
+      },
+    ];
 
-  
+    tasks.forEach((sV) => {
+      todoUl.insertBefore(
+        addHtml(sV.desc, sV.index, sV.desc, sV.bval, sV.index, tasksCl),
+        clearTodo,
+      );
+    });
+
+    completedFunc(tasksCl);
+
+    const list = document.querySelectorAll('.todo-item');
+    expect(list).toHaveLength(2);
+  });
 });
